@@ -37,9 +37,10 @@ def classify(request):
             detections = classify_image(image)
             # Example detection format:
             # detections = [
-            #   {'class': 'Merlot', 'confidence': 0.85, 'box': [...]},
-            #   {'class': 'Merlot', 'confidence': 0.80, 'box': [...]},
-            #   {'class': 'Cabernet', 'confidence': 0.90, 'box': [...]},
+            #   {'class': '0', 'confidence': 0.85, 'box': [...]},
+            #   {'class': '1', 'confidence': 0.80, 'box': [...]},
+            #   {'class': '2', 'confidence': 0.90, 'box': [...]},
+            # edit
             # ]
 
             # Deduplicate: keep only one detection per class (the one with the highest confidence)
