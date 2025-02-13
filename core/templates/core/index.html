@@ -1,0 +1,116 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block css_files %}
+    <link rel="stylesheet" href="{% static "core/core.css" %}">
+{% endblock %}
+
+{% block title %}Home - Thomas AI{% endblock %}
+
+{% block content %}
+<div class="container mt-5 center">
+   <!-- Main Header -->
+   <div>
+     <h1>Thomas A.I.</h1>
+   </div>
+   
+   
+   <!-- Buttons Row -->
+   <div class="d-flex flex-row mb-2">
+      <div class="form-inline d-flex flex-row">
+         <button type="button" class="btn btn-success my-2 my-sm-0" data-toggle="modal" data-target="#cameraModal">
+            <i class="bi bi-camera"></i>
+         </button>
+         <button class="btn btn-info my-2 my-sm-0 ml-1" type="button" data-toggle="modal" data-target="#scanModal">SCAN</button>
+         <button class="btn btn-warning my-2 my-sm-0 ml-1" type="button">
+            <i class="bi bi-graph-up-arrow"></i>
+         </button>
+      </div>
+   </div>
+
+   <!-- Product Information Card -->
+   <div id="productInfoCard" class="card mb-2">
+      <div class="card-body">
+         <h5 class="card-title">Product Information</h5>
+         <div id="productInfoContent">
+           <p>Please take a picture of an item to view product information.</p>
+         </div>
+      </div>
+   </div>
+
+   <!-- Inventory Recommendation Card (initially hidden) -->
+   <div id="inventoryRecommendationCard" class="card mb-2" style="display: none;">
+      <div class="card-body">
+         <h5 class="card-title">Inventory Recommendation</h5>
+         <ul>
+            <li><b>Action:</b> REORDER</li>
+            <li><b>Quantity:</b> 20 Units</li>
+            <li><b>Urgency:</b> HIGH</li>
+            <li><b>Reasoning:</b> Current Stock below Reorder Point</li>
+         </ul>
+      </div>
+   </div>
+
+   <!-- Sales & Inventory Trends (initially hidden) -->
+   <div id="salesTrendsCard" class="mb-2" style="display: none;">
+      <h5>Sales & Inventory Trends</h5>
+      <!-- Placeholder content -->
+   </div>
+
+   <!-- Available Products (initially hidden) -->
+   <div id="availableProductsCard" class="mb-2" style="display: none;">
+      <h5>Available Products</h5>
+      <!-- Placeholder content -->
+   </div>
+
+   <!-- Modal for Camera Capture -->
+   <div class="modal fade" id="cameraModal" tabindex="-1" role="dialog" aria-labelledby="cameraModalLabel" aria-hidden="true">
+      <div class="modal-dialog modal-lg modal-dialog-centered" role="document">
+         <div class="modal-content">
+            <!-- Modal Header -->
+            <div class="modal-header">
+               <h5 class="modal-title" id="cameraModalLabel">Take a Picture</h5>
+               <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                  <span aria-hidden="true">&times;</span>
+               </button>
+            </div>
+            <!-- Modal Body: Camera Feed -->
+            <div class="modal-body">
+               <video id="video" width="100%" autoplay playsinline style="background-color: #000;"></video>
+            </div>
+            <!-- Modal Footer: Capture Button -->
+            <div class="modal-footer">
+               <button type="button" id="captureButton" class="btn btn-primary">Capture Image</button>
+            </div>
+         </div>
+      </div>
+   </div>
+
+     <!-- Modal for Scanning (Real-Time Video Inference) -->
+     <div class="modal fade" id="scanModal" tabindex="-1" role="dialog" aria-labelledby="scanModalLabel" aria-hidden="true">
+      <div class="modal-dialog modal-lg modal-dialog-centered" role="document">
+         <div class="modal-content">
+            <!-- Modal Header -->
+            <div class="modal-header">
+               <h5 class="modal-title" id="scanModalLabel">Scanning for products</h5>
+               <button type="button" class="close" data-dismiss="modal" aria-label="Close" id="closeScanModal">
+                  <span aria-hidden="true">&times;</span>
+               </button>
+            </div>
+            <!-- Modal Body: Video Stream & Canvas Overlay -->
+            <div class="modal-body position-relative">
+               <video id="scanVideo" width="100%" autoplay playsinline style="background-color: #000;"></video>
+               <!-- Canvas on top of video to draw bounding boxes -->
+               <canvas id="scanCanvas" style="position: absolute; top: 0; left: 0; pointer-events: none;"></canvas>
+            </div>
+         </div>
+      </div>
+   </div>
+
+   
+   {% block extra_js %}
+       <!-- Include the custom JavaScript file for camera functionality -->
+       <script src="{% static 'js/camera.js' %}"></script>
+   {% endblock %}
+</div>
+{% endblock %}
